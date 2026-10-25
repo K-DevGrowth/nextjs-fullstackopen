@@ -7,7 +7,7 @@ type SearchParams = Promise<{ filter?: string }>;
 
 const BlogList = async ({ searchParams }: { searchParams: SearchParams }) => {
   const { filter } = await searchParams;
-  const blogs = getBlogs(filter);
+  const blogs = await getBlogs(filter);
 
   return (
     <>
@@ -21,13 +21,11 @@ const BlogList = async ({ searchParams }: { searchParams: SearchParams }) => {
         <p>not found</p>
       ) : (
         <ul>
-          {blogs
-            .sort((a, b) => b.likes - a.likes)
-            .map((blog) => (
-              <li key={blog.id}>
-                <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
-              </li>
-            ))}
+          {blogs.map((blog) => (
+            <li key={blog.id}>
+              <Link href={`/blogs/${blog.id}`}>{blog.title}</Link>
+            </li>
+          ))}
         </ul>
       )}
     </>

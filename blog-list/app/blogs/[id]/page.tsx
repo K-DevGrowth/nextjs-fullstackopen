@@ -1,15 +1,11 @@
 import { Suspense } from "react";
 import { likeBlog } from "@/app/actions/blogs";
-import { getBlogById, getBlogs } from "@/app/services/blogs";
+import { getBlogById } from "@/app/services/blogs";
 import { notFound } from "next/navigation";
-
-export const generateStaticParams = async () => {
-  return getBlogs().map((blog) => ({ id: String(blog.id) }));
-};
 
 const BlogContent = async ({ params }: { params: Promise<{ id: string }> }) => {
   const { id } = await params;
-  const blog = getBlogById(Number(id));
+  const blog = await getBlogById(Number(id));
 
   if (!blog) {
     notFound();
