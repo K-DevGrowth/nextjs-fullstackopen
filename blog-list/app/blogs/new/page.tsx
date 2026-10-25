@@ -1,6 +1,17 @@
 import { createBlog } from "@/app/actions/blogs";
+import { getUsers } from "@/app/services/users";
+import { Suspense } from "react";
 
-const NewBlog = () => {
+export default function NewBlogPage() {
+  return (
+    <Suspense>
+      <NewBlogContent />
+    </Suspense>
+  );
+}
+
+const NewBlogContent = async () => {
+  const allUsers = await getUsers();
   return (
     <div className="max-w-50 p-4">
       <h2>Create blog</h2>
@@ -21,10 +32,15 @@ const NewBlog = () => {
           <label htmlFor="likes">likes</label>
           <input type="number" id="likes" name="likes" />
         </div>
+        <select name="userId" required>
+          {allUsers.map((user) => (
+            <option key={user.id} value={user.id}>
+              {user.name}
+            </option>
+          ))}
+        </select>
         <button type="submit">Create</button>
       </form>
     </div>
   );
 };
-
-export default NewBlog;

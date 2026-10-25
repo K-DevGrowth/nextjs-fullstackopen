@@ -1,7 +1,16 @@
 import Link from "next/link";
 import { getUsers } from "../services/users";
+import { Suspense } from "react";
 
-const Users = async () => {
+export default function UsersPage() {
+  return (
+    <Suspense>
+      <UsersContent />
+    </Suspense>
+  );
+}
+
+const UsersContent = async () => {
   const users = await getUsers();
 
   return (
@@ -17,5 +26,3 @@ const Users = async () => {
     </div>
   );
 };
-
-export default Users;

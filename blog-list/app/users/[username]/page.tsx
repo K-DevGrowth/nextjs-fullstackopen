@@ -1,8 +1,21 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getUserByUsername } from "../../services/users";
+import { Suspense } from "react";
 
-const UserPage = async ({
+export default function UserPage({
+  params,
+}: {
+  params: Promise<{ username: string }>;
+}) {
+  return (
+    <Suspense>
+      <UserContent params={params} />
+    </Suspense>
+  );
+}
+
+const UserContent = async ({
   params,
 }: {
   params: Promise<{ username: string }>;
@@ -29,5 +42,3 @@ const UserPage = async ({
     </div>
   );
 };
-
-export default UserPage;

@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { blogs } from "@/db/schema";
 import { eq, ilike } from "drizzle-orm";
+import { getUserById } from "./users";
 
 export const getBlogs = async (filter?: string) => {
   const searchValue = filter?.trim().toLowerCase();
@@ -18,8 +19,9 @@ export const addBlog = async (
   author: string,
   url: string,
   likes: number,
+  userId: number,
 ) => {
-  await db.insert(blogs).values({ title, author, url, likes });
+  await db.insert(blogs).values({ title, author, url, likes, userId });
 };
 
 export const getBlogById = async (id: number) => {
