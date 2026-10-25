@@ -10,7 +10,11 @@ export default function RootLayout({
       <body>
         <nav>
           <Link href="/">Home</Link>
+          {" | "}
           <Link href="/blogs">Blogs</Link>
+          {" | "}
+          <Link href="/users">Users</Link>
+          {" | "}
           <Link href="/blogs/new">New</Link>
         </nav>
         {children}
